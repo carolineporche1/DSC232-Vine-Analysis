@@ -82,15 +82,14 @@ files.upload()  # Upload kaggle.json
 !mkdir -p ~/.kaggle
 !cp kaggle.json ~/.kaggle/
 !chmod 600 ~/.kaggle/kaggle.json
+```
 
 
-
-
-To run our notebook on Google Colab, install required packages:
+## To run our notebook on Google Colab, install required packages:
 
 ```python
 !pip install pyspark
 !pip install kaggle
 !pip install nltk
 Note: We use the Kaggle API (`!kaggle datasets download`) instead of `!wget` because the Amazon review dataset requires authentication via a Kaggle API key. This is functionally equivalent to `wget` but secure.
-
+```
