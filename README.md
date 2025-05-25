@@ -59,8 +59,45 @@ We trained a logistic regression model to classify Vine vs. non-Vine reviews.
 - Training and validation/test accuracy are closely aligned.
 - **Conclusion**: Slight underfitting — model may benefit from increased complexity (e.g., decision trees, ensembles).
 
-#### Ground Truth vs. Predictions
-Example output:
+
+---
+
+### 🔮 Next Steps
+- Try more expressive models: **Random Forest**, **XGBoost**
+- Balance Vine vs. non-Vine examples using **SMOTE** or **class weighting**
+- Test **TF-IDF** features or use text embeddings for better representation
+- Explore regression models to predict helpfulness score
+
+---
+
+## Conclusion
+Our logistic regression baseline performs reasonably well without overfitting. However, performance metrics suggest there's potential for improvement using more sophisticated models and richer features.
+
+---
+
+## Notebooks
+
+- [Milestone 3 Notebook](https://colab.research.google.com/drive/1B87bLoxxEpuh9BflsjAw8hpDD89787tK?usp=sharing)
+- [Milestone 2 Notebook](https://colab.research.google.com/drive/1qLS9L-2DxKVYe4vZ5wNhfQAtpAgXWI1d?usp=sharing)
+
+---
+
+## ⚙Environment Setup (Colab Instructions)
+
+### Kaggle API Setup
+
+1. Go to your [Kaggle Account Settings](https://www.kaggle.com/account) and click **"Create New API Token"**.
+2. This downloads `kaggle.json`.
+3. Upload to Colab using:
+
+```python
+from google.colab import files
+files.upload()
+
+!mkdir -p ~/.kaggle
+!cp kaggle.json ~/.kaggle/
+!chmod 600 ~/.kaggle/kaggle.json
+
 
 !pip install kaggle
 !pip install nltk
