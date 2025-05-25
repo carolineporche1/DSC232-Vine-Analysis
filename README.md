@@ -50,15 +50,12 @@ We completed full preprocessing, including:
 We trained a logistic regression model to classify Vine vs. non-Vine reviews.
 
 #### Evaluation Metrics
-- **Training Accuracy**: 76.4%
-- **Validation Accuracy**: 74.8%
-- **Test Accuracy**: 74.9%
-- **F1 Score (Test)**: 0.71
+- **Test Accuracy**: 59.8%
+- **F1 Score**: 0.5983
 
 #### Underfitting or Overfitting?
-- Training and validation/test accuracy are closely aligned.
-- **Conclusion**: Slight underfitting — model may benefit from increased complexity (e.g., decision trees, ensembles).
-
+- The model shows **underfitting**, likely due to limited training sample size (5%) and use of basic TF-IDF features.
+- Increasing the dataset to 20% and expanding feature dimensions (e.g., more TF-IDF features or embeddings) may improve performance.
 
 ---
 
