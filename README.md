@@ -82,7 +82,7 @@ Our logistic regression baseline performs reasonably well without overfitting. H
 
 ---
 
-## ⚙Environment Setup (Colab Instructions)
+## Environment Setup (Colab Instructions)
 
 ### Kaggle API Setup
 
