@@ -62,7 +62,7 @@ We trained a logistic regression model to classify Vine vs. non-Vine reviews.
 
 ---
 
-### 🔮 Next Steps
+### Next Steps
 - Try more expressive models: **Random Forest**, **XGBoost**
 - Balance Vine vs. non-Vine examples using **SMOTE** or **class weighting**
 - Test **TF-IDF** features or use text embeddings for better representation
