@@ -15,80 +15,53 @@ This dataset includes millions of Amazon customer reviews across a wide range of
 This project investigates the Amazon Vine program, where reviewers receive free products in exchange for writing reviews. We aim to:
 
 - Analyze the impact of Vine reviews on overall product ratings.
-- Identify key differences between Vine and non-Vine reviews, including:
+- Identify differences between Vine and non-Vine reviews:
   - Rating distributions
   - Review length
   - Helpfulness scores
   - Sentiment polarity
   - Verified purchase frequency
-- Determine if certain product categories are more influenced by Vine participation.
-- Evaluate the perceived authenticity and effectiveness of Vine reviews from consumer and seller perspectives.
+- Explore category-level differences in Vine influence.
+- Evaluate review authenticity and marketing effectiveness.
 
-## Notebook
+---
 
-View and run our full project notebook in Google Colab:
+## Milestone 3: Preprocessing, Modeling & Evaluation
 
-[Open in Google Colab](https://colab.research.google.com/drive/1qLS9L-2DxKVYe4vZ5wNhfQAtpAgXWI1d?usp=sharing)
+### Updated Notebook
+[Milestone 3 Colab Notebook](https://colab.research.google.com/drive/1B87bLoxxEpuh9BflsjAw8hpDD89787tK?usp=sharing)
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1qLS9L-2DxKVYe4vZ5wNhfQAtpAgXWI1d?usp=sharing)
+### Preprocessing Summary
+We completed full preprocessing, including:
 
-## Data Exploration
+- Imputation for missing values in review text and helpful votes
+- Feature scaling using `MinMaxScaler` and `StandardScaler`
+- Text cleaning: tokenization, lemmatization, lowercasing, punctuation removal
+- Sentiment score extraction using Spark NLP
+- Feature engineering:
+  - Review length (word/character count)
+  - Log-transformed helpfulness scores
+  - Interaction terms (e.g., `vine * verified_purchase`)
+  - One-hot and label encoding of categorical variables
 
-Our exploration focused on understanding the structure and contents of the dataset:
+---
 
-- Total number of records and features
-- Distribution of:
-  - `star_rating`
-  - `review_length` (character count)
-  - `helpful_votes`
-- Presence of missing values
-- Variable types:
-  - `star_rating`: ordinal
-  - `helpful_votes`, `total_votes`: ratio
-  - `review_length`: interval
-  - `vine`, `verified_purchase`: nominal (binary)
+### First Model: Logistic Regression
+We trained a logistic regression model to classify Vine vs. non-Vine reviews.
 
-We visualized rating and review differences between Vine and non-Vine reviewers using:
+#### Evaluation Metrics
+- **Training Accuracy**: 76.4%
+- **Validation Accuracy**: 74.8%
+- **Test Accuracy**: 74.9%
+- **F1 Score (Test)**: 0.71
 
-- Histograms and bar plots
-- Scatter plots showing relationship between length and helpfulness
-- Category-level aggregations
+#### Underfitting or Overfitting?
+- Training and validation/test accuracy are closely aligned.
+- **Conclusion**: Slight underfitting — model may benefit from increased complexity (e.g., decision trees, ensembles).
 
-## Data Preprocessing Plan
+#### Ground Truth vs. Predictions
+Example output:
 
-We prepared the data with the following steps:
-
-- Dropped entries with missing values in key columns
-- Cleaned review text (lowercased, removed punctuation, tokenized)
-- Converted categorical variables (`vine`, `verified_purchase`) into binary indicators
-- Handled class imbalance where necessary
-- Conducted sentiment analysis using Spark NLP and NLTK tools
-
-## Environment Setup (Colab Instructions)
-
-## Kaggle API Setup
-
-To use the Kaggle API in Google Colab:
-
-1. Go to your [Kaggle Account Settings](https://www.kaggle.com/account) and click **"Create New API Token"**.
-2. This will download a file called `kaggle.json`.
-
-3. In Colab, upload it with the following code block:
-
-```python
-from google.colab import files
-files.upload()  # Upload kaggle.json
-
-!mkdir -p ~/.kaggle
-!cp kaggle.json ~/.kaggle/
-!chmod 600 ~/.kaggle/kaggle.json
-```
-
-
-## To run our notebook on Google Colab, install required packages:
-
-```python
-!pip install pyspark
 !pip install kaggle
 !pip install nltk
 Note: We use the Kaggle API (`!kaggle datasets download`) instead of `!wget` because the Amazon review dataset requires authentication via a Kaggle API key. This is functionally equivalent to `wget` but secure.
