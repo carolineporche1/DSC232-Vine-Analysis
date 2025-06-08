@@ -129,13 +129,30 @@ Contribution: Created visualizations in code to support analysis, authored the R
 
 ## IX. Environment Setup (Google Colab)
 
-To enable Kaggle data access in Colab:
+## Kaggle API Setup
+
+To use the Kaggle API in Google Colab:
+
+1. Go to your [Kaggle Account Settings](https://www.kaggle.com/account) and click **"Create New API Token"**.
+2. This will download a file called `kaggle.json`.
+
+3. In Colab, upload it with the following code block:
 
 ```python
 from google.colab import files
-files.upload()
+files.upload()  # Upload kaggle.json
 
 !mkdir -p ~/.kaggle
 !cp kaggle.json ~/.kaggle/
 !chmod 600 ~/.kaggle/kaggle.json
+```
 
+
+## To run our notebook on Google Colab, install required packages:
+
+```python
+!pip install pyspark
+!pip install kaggle
+!pip install nltk
+Note: We use the Kaggle API (`!kaggle datasets download`) instead of `!wget` because the Amazon review dataset requires authentication via a Kaggle API key. This is functionally equivalent to `wget` but secure.
+```
