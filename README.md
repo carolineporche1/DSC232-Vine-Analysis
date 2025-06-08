@@ -8,41 +8,125 @@
 
 ---
 
-## Project Summary
+## I. Introduction
 
-Amazon Vine is a program where selected users receive free products in exchange for writing reviews. This project investigates whether Vine reviews differ from non-Vine reviews and explores potential bias introduced by this incentive structure.
+Amazon Vine is an invite-only review program where top contributors receive free products in exchange for writing reviews. Although marketed as neutral and unbiased, prior research suggests that incentives may affect the tone and content of these reviews.
 
-We use a subset of the [Amazon US Customer Reviews Dataset](https://www.kaggle.com/datasets/cynthiarempel/amazon-us-customer-reviews-dataset) to:
-- Compare Vine and non-Vine review characteristics
-- Predict star ratings using review text and metadata
-- Evaluate classification performance using logistic regression and other models
+This project investigates whether Vine reviews differ significantly from non-Vine reviews in:
+- Star rating distribution
+- Helpfulness scores
+- Sentiment polarity
+- Review length
 
----
-
-## Final Results
-
-- Final Model: Logistic Regression  
-- Accuracy: 67.4%  
-- F1 Score: 0.5983  
-
-Key Findings:
-- Vine reviews are longer, more helpful, and more moderate in tone
-- Non-Vine reviews show higher polarity and are more likely to be 5 stars
-- Logistic regression outperformed more complex models due to its interpretability and consistent performance
+We used data from the [Amazon US Customer Reviews Dataset](https://www.kaggle.com/datasets/cynthiarempel/amazon-us-customer-reviews-dataset), applying classification models (logistic regression, Naive Bayes, and Random Forest) to explore review bias.
 
 ---
 
-## Project Assets
+## II. Figures
 
-- Final Colab Notebook: [Link](https://colab.research.google.com/drive/1B87bLoxxEpuh9BflsjAw8hpDD89787tK?usp=sharing)  
-- Final Written Report: [Link](https://docs.google.com/document/d/19uSUlNqZAf24s00qddqhPWhanOm71eJqbT_h4E8t81s/edit?usp=sharing)  
-- Milestone 2 Notebook: [Link](https://colab.research.google.com/drive/1qLS9L-2DxKVYe4vZ5wNhfQAtpAgXWI1d?usp=sharing)
+- **Figure 1:** Over 63% of all reviews are 5-star, indicating class imbalance.
+- **Figure 2:** Non-Vine reviews skew more positive than Vine reviews, which are more evenly distributed.
+- **Figure 3:** Vine reviews have significantly higher average helpfulness scores.
+- **Figure 4:** Sentiment polarity varies by product category (e.g., Digital Music highest, Gift Cards lowest).
+- **Figure 5:** Non-Vine reviews show more emotional variability in sentiment; Vine reviews are more moderate.
 
 ---
 
-## Environment Setup (Google Colab)
+## III. Methods
 
-To access the dataset via Kaggle in Colab:
+We selected reviews from nine diverse product categories and cleaned over 20 million records down to approximately 193,085 reviews. Only clearly labeled Vine and non-Vine entries were included.
+
+**Preprocessing Steps:**
+- Removed nulls and duplicates
+- Focused on review ID, star rating, and full text
+- Tokenized and cleaned review body text
+- Used TF-IDF vectorization
+- Engineered features: review length (word count), sentiment polarity
+
+**Modeling:**
+- Logistic Regression (final model)
+- Naive Bayes
+- Random Forest
+
+We used PySpark’s MLlib for modeling in Google Colab, leveraging SDSC resources for efficient large-scale processing. Exploratory analysis and plotting were done using pandas, NumPy, matplotlib, and seaborn.
+
+---
+
+## IV. Results
+
+- **Final Model:** Logistic Regression  
+- **Accuracy:** 67.4%  
+- **F1 Score:** 0.5983  
+
+**Insights:**
+- 5-star reviews dominate the dataset (63.91%)
+- Vine reviews are more balanced across ratings and have higher helpfulness scores
+- Vine reviews are longer (average 1145 characters vs. 277 for non-Vine)
+- Sentiment polarity in Vine reviews is more concentrated and less extreme
+- Logistic regression outperformed tree-based models in consistency
+
+---
+
+## V. Discussion
+
+While logistic regression achieved 67.4% accuracy and an F1 score of 0.5983, these metrics reflect the dataset's class imbalance. Even with sampling and feature engineering, models tended to predict the majority (5-star) class.
+
+**Challenges:**
+- Severe class imbalance and limited Vine data (only 0.41% of total)
+- Run-time and memory constraints required SDSC resources
+- Possible mismatch between review text and star ratings
+- Lack of updated review tracking or sentiment alignment
+
+**Ethical Considerations:**
+- Avoided tracking user IDs
+- Minimized reading of full reviews to protect privacy
+- Focused on general product categories to avoid sensitive content
+
+---
+
+## VI. Conclusion
+
+This project demonstrates measurable differences between Vine and non-Vine reviews. While Vine reviews are incentivized, they appear more thoughtful, moderate, and helpful on average. Our logistic regression model shows that basic textual and structural features can help classify review type, though limitations exist due to data imbalance and ambiguity.
+
+Future work could:
+- Include direct sentiment polarity as a feature
+- Incorporate embeddings (e.g., Word2Vec, BERT)
+- Explore helpfulness score prediction
+- Use stratified sampling or advanced resampling methods
+
+---
+
+## VII. Statement of Collaboration
+
+**Jenna**  
+Title: Data Exploration & Introduction Writer  
+Contribution: Initiated the project and contributed to idea development, located the Kaggle dataset, performed initial data exploration and visualizations, wrote the Introduction and Figures sections, and updated the project README.
+
+**Matt**  
+Title: Modeling Lead & Data Engineer  
+Contribution: Led model fitting and evaluation processes, provided SDSC access, assisted with data cleaning and preprocessing.
+
+**Caroline**  
+Title: Project Manager & Data Engineer  
+Contribution: Managed project timeline and deadlines, set up Kaggle API and Google Colab environments, performed data cleaning, wrote the Methods section, and organized the GitHub repository and README documentation.
+
+**JoJo**  
+Title: Results Analyst & Visualization Developer  
+Contribution: Created visualizations in code to support analysis, authored the Results and Conclusions sections, and contributed to interpretation of model performance.
+
+---
+
+## VIII. Final Project Assets
+
+- Final Colab Notebook: [https://colab.research.google.com/drive/1B87bLoxxEpuh9BflsjAw8hpDD89787tK?usp=sharing](https://colab.research.google.com/drive/1B87bLoxxEpuh9BflsjAw8hpDD89787tK?usp=sharing)  
+- Final Written Report: [https://docs.google.com/document/d/19uSUlNqZAf24s00qddqhPWhanOm71eJqbT_h4E8t81s/edit?usp=sharing](https://docs.google.com/document/d/19uSUlNqZAf24s00qddqhPWhanOm71eJqbT_h4E8t81s/edit?usp=sharing)  
+- Milestone 2 Notebook: [https://colab.research.google.com/drive/1qLS9L-2DxKVYe4vZ5wNhfQAtpAgXWI1d?usp=sharing](https://colab.research.google.com/drive/1qLS9L-2DxKVYe4vZ5wNhfQAtpAgXWI1d?usp=sharing)
+
+---
+
+## IX. Environment Setup (Google Colab)
+
+To enable Kaggle data access in Colab:
 
 ```python
 from google.colab import files
@@ -51,4 +135,3 @@ files.upload()
 !mkdir -p ~/.kaggle
 !cp kaggle.json ~/.kaggle/
 !chmod 600 ~/.kaggle/kaggle.json
-
