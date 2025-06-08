@@ -1,4 +1,4 @@
-# DSC232R Vine Review Analysis
+# DSC232R: Assessing Bias in Amazon Vine Reviews
 
 ## Group Members
 - Jenna Brooks ([j8brooks@ucsd.edu](mailto:j8brooks@ucsd.edu))
@@ -6,87 +6,108 @@
 - Caroline Porche ([cporche@ucsd.edu](mailto:cporche@ucsd.edu))
 - Matthew Takeuchi ([m1takeuc@ucsd.edu](mailto:m1takeuc@ucsd.edu))
 
-## Dataset
-[Amazon US Customer Reviews Dataset (Kaggle)](https://www.kaggle.com/datasets/cynthiarempel/amazon-us-customer-reviews-dataset)
+---
 
-This dataset includes millions of Amazon customer reviews across a wide range of product categories. It contains fields such as star ratings, review text, helpfulness votes, verification status, and whether the review was part of Amazon’s Vine program.
+## I. Introduction
 
-## Project Objective
-This project investigates the Amazon Vine program, where reviewers receive free products in exchange for writing reviews. We aim to:
+Amazon Vine is an invite-only program where top reviewers receive free products in exchange for writing reviews. While marketed as unbiased, past research suggests such incentives may affect the tone and content of reviews.
 
-- Analyze the impact of Vine reviews on overall product ratings.
-- Identify differences between Vine and non-Vine reviews:
-  - Rating distributions
-  - Review length
-  - Helpfulness scores
-  - Sentiment polarity
-  - Verified purchase frequency
-- Explore category-level differences in Vine influence.
-- Evaluate review authenticity and marketing effectiveness.
+This project investigates whether Vine reviews differ significantly from non-Vine reviews in terms of:
+- Star ratings
+- Helpfulness scores
+- Sentiment polarity
+- Review length
+
+We use a cleaned subset of the [Amazon US Customer Reviews Dataset](https://www.kaggle.com/datasets/cynthiarempel/amazon-us-customer-reviews-dataset), and apply classification models (logistic regression, Naive Bayes, Random Forest) to explore potential bias in Vine reviews.
 
 ---
 
-## Milestone 3: Preprocessing, Modeling & Evaluation
+## II. Figures Summary
 
-### Updated Notebook
-[Milestone 3 Colab Notebook](https://colab.research.google.com/drive/1B87bLoxxEpuh9BflsjAw8hpDD89787tK?usp=sharing)
-
-### Preprocessing Summary
-We completed full preprocessing, including:
-
-- Imputation for missing values in review text and helpful votes
-- Feature scaling using `MinMaxScaler` and `StandardScaler`
-- Text cleaning: tokenization, lemmatization, lowercasing, punctuation removal
-- Sentiment score extraction using Spark NLP
-- Feature engineering:
-  - Review length (word/character count)
-  - Log-transformed helpfulness scores
-  - Interaction terms (e.g., `vine * verified_purchase`)
-  - One-hot and label encoding of categorical variables
+- **Rating Distribution:** 5-star reviews dominate (63.91%), indicating strong class imbalance.
+- **Vine vs. Non-Vine Ratings:** Vine reviews are more evenly spread across star ratings.
+- **Helpfulness:** Vine reviews have higher average helpfulness scores.
+- **Sentiment Polarity:** Vine reviews show narrower sentiment distribution than non-Vine.
+- **Product Categories:** Sentiment varies by category, with Digital Music most positive and Gift Cards least.
 
 ---
 
-### First Model: Logistic Regression
-We trained a logistic regression model to classify Vine vs. non-Vine reviews.
+## III. Methods
 
-#### Evaluation Metrics
-- **Test Accuracy**: 59.8%
-- **F1 Score**: 0.5983
-
-#### Underfitting or Overfitting?
-- The model shows **underfitting**, likely due to limited training sample size (5%) and use of basic TF-IDF features.
-- Increasing the dataset to 20% and expanding feature dimensions (e.g., more TF-IDF features or embeddings) may improve performance.
-
----
-
-### Next Steps
-- Try more expressive models: **Random Forest**, **XGBoost**
-- Balance Vine vs. non-Vine examples using **SMOTE** or **class weighting**
-- Test **TF-IDF** features or use text embeddings for better representation
-- Explore regression models to predict helpfulness score
+- Selected 9 categories for analysis (e.g., Beauty, Electronics, Gift Cards).
+- Cleaned 20M+ records down to ~193K (0.41% Vine).
+- Preprocessing included:
+  - Removal of missing values & duplicates
+  - TF-IDF vectorization of text
+  - Feature engineering (review length, sentiment polarity)
+- Models used:
+  - Logistic Regression (final)
+  - Naive Bayes
+  - Random Forest
+- Tools:
+  - PySpark, MLlib, Google Colab, SDSC
+  - matplotlib, seaborn, pandas, NumPy
 
 ---
 
-## Conclusion
-Our logistic regression baseline performs reasonably well without overfitting. However, performance metrics suggest there's potential for improvement using more sophisticated models and richer features.
+## IV. Results
+
+- **Final Model:** Logistic Regression
+- **Test Accuracy:** 67.4%
+- **F1 Score:** 0.5983
+- Vine reviews: longer, more helpful, more moderate in tone
+- Non-Vine reviews: more emotionally extreme, more skewed toward 5 stars
 
 ---
 
-## Notebooks
+## V. Discussion
 
-- [Milestone 3 Notebook](https://colab.research.google.com/drive/1B87bLoxxEpuh9BflsjAw8hpDD89787tK?usp=sharing)
-- [Milestone 2 Notebook](https://colab.research.google.com/drive/1qLS9L-2DxKVYe4vZ5wNhfQAtpAgXWI1d?usp=sharing)
+- Model performance impacted by class imbalance
+- Stratified sampling or class weighting could improve results
+- Resource limitations (runtime, SDSC access) constrained deeper exploration
+- Star ratings don’t always align with textual sentiment
+- Ethical considerations: review privacy, category selection, ID anonymization
 
 ---
 
-## Environment Setup (Colab Instructions)
+## VI. Conclusion
+
+Vine reviews show distinct patterns: they’re more moderate, more helpful, and longer. Despite being incentivized, they may offer higher-quality feedback. Our model performed reasonably well, though limited by dataset imbalance and computational constraints. Future work could integrate sentiment directly and explore more advanced NLP models.
+
+---
+
+## VII. Statement of Collaboration
+
+**Jenna**  
+**Title:** Data Exploration & Introduction Writer  
+**Contribution:** Initiated the project and contributed to idea development, located the Kaggle dataset, performed initial data exploration and visualizations, wrote the Introduction and Figures sections, and updated the project README.
+
+**Matt**  
+**Title:** Modeling Lead & Data Engineer  
+**Contribution:** Led model fitting and evaluation processes and provided access to SDSC resources for computing, performed data cleaning and preprocessing.
+
+**Caroline**  
+**Title:** Project Manager & Data Engineer  
+**Contribution:** Managed the project timeline and deadlines, set up Kaggle API and Google Colab environments, performed data cleaning and preprocessing, wrote the Methods section, and organized the GitHub repository including the README documentation.
+
+**Jojo**  
+**Title:** Results Analyst & Visualization Developer  
+**Contribution:** Created visualizations in code to support analysis, authored the Results and Conclusions sections, and contributed to interpretation of model performance.
+
+---
+
+## VIII. Final Deliverables
+
+- 📄 [Final Report (Google Doc)](https://docs.google.com/document/d/19uSUlNqZAf24s00qddqhPWhanOm71eJqbT_h4E8t81s/edit?usp=sharing)  
+- 📓 [Final Colab Notebook](https://colab.research.google.com/drive/1r6Rg66iP_PTqvRSvZetj451lW5J-B0wm?usp=sharing)  
+- 📓 [Milestone 3 Notebook](https://colab.research.google.com/drive/1B87bLoxxEpuh9BflsjAw8hpDD89787tK?usp=sharing)  
+- 📓 [Milestone 2 Notebook](https://colab.research.google.com/drive/1qLS9L-2DxKVYe4vZ5wNhfQAtpAgXWI1d?usp=sharing)
+
+---
+
+## IX. Environment Setup (Colab)
 
 ### Kaggle API Setup
-
-1. Go to your [Kaggle Account Settings](https://www.kaggle.com/account) and click **"Create New API Token"**.
-2. This downloads `kaggle.json`.
-3. Upload to Colab using:
-
 ```python
 from google.colab import files
 files.upload()
@@ -94,6 +115,7 @@ files.upload()
 !mkdir -p ~/.kaggle
 !cp kaggle.json ~/.kaggle/
 !chmod 600 ~/.kaggle/kaggle.json
+
 
 
 !pip install kaggle
