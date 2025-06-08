@@ -118,10 +118,11 @@ Contribution: Created visualizations in code to support analysis, authored the R
 
 ## VIII. Final Project Assets
 
+- Final Written Report: [https://docs.google.com/document/d/19uSUlNqZAf24s00qddqhPWhanOm71eJqbT_h4E8t81s/edit?usp=sharing](https://docs.google.com/document/d/19uSUlNqZAf24s00qddqhPWhanOm71eJqbT_h4E8t81s/edit?usp=sharing)
 - Final Colab Notebook: [https://colab.research.google.com/drive/1GdWyqy86LHoyqyTSWoFi5fP_voTnJnVQ?usp=sharing](https://colab.research.google.com/drive/1GdWyqy86LHoyqyTSWoFi5fP_voTnJnVQ?usp=sharing)  
 - Milestone 3 Notebook: [https://colab.research.google.com/drive/1B87bLoxxEpuh9BflsjAw8hpDD89787tK?usp=sharing](https://colab.research.google.com/drive/1B87bLoxxEpuh9BflsjAw8hpDD89787tK?usp=sharing)  
 - Milestone 2 Notebook: [https://colab.research.google.com/drive/1qLS9L-2DxKVYe4vZ5wNhfQAtpAgXWI1d?usp=sharing](https://colab.research.google.com/drive/1qLS9L-2DxKVYe4vZ5wNhfQAtpAgXWI1d?usp=sharing)  
-- Final Written Report: [https://docs.google.com/document/d/19uSUlNqZAf24s00qddqhPWhanOm71eJqbT_h4E8t81s/edit?usp=sharing](https://docs.google.com/document/d/19uSUlNqZAf24s00qddqhPWhanOm71eJqbT_h4E8t81s/edit?usp=sharing)
+
 
 
 ---
