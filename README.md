@@ -36,21 +36,39 @@ We used data from the [Amazon US Customer Reviews Dataset](https://www.kaggle.co
 
 ## III. Methods
 
-We selected reviews from nine diverse product categories and cleaned over 20 million records down to approximately 193,085 reviews. Only clearly labeled Vine and non-Vine entries were included.
+### Data Exploration  
+We selected data from nine diverse Amazon product categories: Beauty, Automotive, Digital Music Purchase, Outdoors, Baby, Electronics, Gift Cards, Furniture, and Tools. Each category was reviewed for data volume, Vine label distribution, star rating distribution, and the presence of missing values. Vine reviews represented approximately 0.41% of the dataset, indicating a significant class imbalance.
 
-**Preprocessing Steps:**
-- Removed nulls and duplicates
-- Focused on review ID, star rating, and full text
-- Tokenized and cleaned review body text
-- Used TF-IDF vectorization
-- Engineered features: review length (word count), sentiment polarity
+### Preprocessing  
+To enable efficient processing in Google Colab, the dataset was partitioned into eight chunks. We removed reviews containing null values in either the `review_body` or `star_rating` fields and eliminated duplicates using the `review_id`. We filtered to include only clearly labeled Vine (“Y”) and Non-Vine (“N”) reviews. From the cleaned data, we selected the following features for modeling:
+- `review_id`
+- `star_rating`
+- `review_body`
 
-**Modeling:**
-- Logistic Regression (final model)
-- Naive Bayes
-- Random Forest
+Additional preprocessing steps included:
+- Binarizing `star_rating`: ratings ≥ 4 labeled as 1 (positive), ratings < 4 as 0 (negative)
+- Engineering a `review_length` feature (word count of `review_body`)
+- Text processing using the following Spark MLlib pipeline:  
 
-We used PySpark’s MLlib for modeling in Google Colab, leveraging SDSC resources for efficient large-scale processing. Exploratory analysis and plotting were done using pandas, NumPy, matplotlib, and seaborn.
+### Model 1: Naive Bayes  
+We trained a Multinomial Naive Bayes classifier using TF-IDF features and `review_length`. The model was configured using:
+```python
+NaiveBayes(modelType="multinomial", featuresCol="features", labelCol="label")
+```
+### Model 2: Logistic Regression
+A logistic regression model was trained on the same features. It was configured with:
+```python
+LogisticRegression(featuresCol="features", labelCol="label", maxIter=20, regParam=0.1)
+```
+### Model 3: Random Forest Classifier
+A random forest model was trained on the same feature set. he model was evaluated using the same metrics: accuracy, precision, recall, and F1-score.
+
+ Configuration:
+ ```python
+RandomForestClassifier(labelCol="label", featuresCol="features", numTrees=100, maxDepth=5)
+ ```
+### Tools and Environment 
+All data processing and modeling were conducted using PySpark within Google Colab, with compute support from the San Diego Supercomputer Center (SDSC). We used Spark MLlib for feature engineering and modeling. Visualizations and exploratory data analysis were performed with matplotlib and seaborn, and pandas and NumPy were used for tabular operations and summary statistics.
 
 ---
 
