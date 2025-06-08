@@ -8,106 +8,43 @@
 
 ---
 
-## I. Introduction
+## Project Summary
 
-Amazon Vine is an invite-only program where top reviewers receive free products in exchange for writing reviews. While marketed as unbiased, past research suggests such incentives may affect the tone and content of reviews.
+Amazon Vine is a review program in which selected users receive free products in exchange for writing reviews. This project investigates whether Vine reviews differ from non-Vine reviews and explores potential bias introduced by this incentive structure.
 
-This project investigates whether Vine reviews differ significantly from non-Vine reviews in terms of:
-- Star ratings
-- Helpfulness scores
-- Sentiment polarity
-- Review length
-
-We use a cleaned subset of the [Amazon US Customer Reviews Dataset](https://www.kaggle.com/datasets/cynthiarempel/amazon-us-customer-reviews-dataset), and apply classification models (logistic regression, Naive Bayes, Random Forest) to explore potential bias in Vine reviews.
+We use a subset of the [Amazon US Customer Reviews Dataset](https://www.kaggle.com/datasets/cynthiarempel/amazon-us-customer-reviews-dataset) to:
+- Compare Vine and non-Vine review characteristics
+- Predict star ratings using review text and metadata
+- Evaluate classification performance using logistic regression and other models
 
 ---
 
-## II. Figures Summary
+## Final Results
 
-- **Rating Distribution:** 5-star reviews dominate (63.91%), indicating strong class imbalance.
-- **Vine vs. Non-Vine Ratings:** Vine reviews are more evenly spread across star ratings.
-- **Helpfulness:** Vine reviews have higher average helpfulness scores.
-- **Sentiment Polarity:** Vine reviews show narrower sentiment distribution than non-Vine.
-- **Product Categories:** Sentiment varies by category, with Digital Music most positive and Gift Cards least.
+- Final Model: Logistic Regression  
+- Accuracy: 67.4%  
+- F1 Score: 0.5983  
 
----
-
-## III. Methods
-
-- Selected 9 categories for analysis (e.g., Beauty, Electronics, Gift Cards).
-- Cleaned 20M+ records down to ~193K (0.41% Vine).
-- Preprocessing included:
-  - Removal of missing values & duplicates
-  - TF-IDF vectorization of text
-  - Feature engineering (review length, sentiment polarity)
-- Models used:
-  - Logistic Regression (final)
-  - Naive Bayes
-  - Random Forest
-- Tools:
-  - PySpark, MLlib, Google Colab, SDSC
-  - matplotlib, seaborn, pandas, NumPy
+Key Findings:
+- Vine reviews are longer, more helpful, and more moderate in tone
+- Non-Vine reviews show higher polarity and are more likely to be 5 stars
+- Logistic regression outperformed more complex models on this dataset due to interpretability and consistency
 
 ---
 
-## IV. Results
+## Project Assets
 
-- **Final Model:** Logistic Regression
-- **Test Accuracy:** 67.4%
-- **F1 Score:** 0.5983
-- Vine reviews: longer, more helpful, more moderate in tone
-- Non-Vine reviews: more emotionally extreme, more skewed toward 5 stars
-
----
-
-## V. Discussion
-
-- Model performance impacted by class imbalance
-- Stratified sampling or class weighting could improve results
-- Resource limitations (runtime, SDSC access) constrained deeper exploration
-- Star ratings don’t always align with textual sentiment
-- Ethical considerations: review privacy, category selection, ID anonymization
+- Final Colab Notebook: [Link](https://colab.research.google.com/drive/1r6Rg66iP_PTqvRSvZetj451lW5J-B0wm?usp=sharing)  
+- Final Written Report: [Link](https://docs.google.com/document/d/19uSUlNqZAf24s00qddqhPWhanOm71eJqbT_h4E8t81s/edit?usp=sharing)  
+- Milestone 3 Notebook: [Link](https://colab.research.google.com/drive/1B87bLoxxEpuh9BflsjAw8hpDD89787tK?usp=sharing)  
+- Milestone 2 Notebook: [Link](https://colab.research.google.com/drive/1qLS9L-2DxKVYe4vZ5wNhfQAtpAgXWI1d?usp=sharing)
 
 ---
 
-## VI. Conclusion
+## Environment Setup (Google Colab)
 
-Vine reviews show distinct patterns: they’re more moderate, more helpful, and longer. Despite being incentivized, they may offer higher-quality feedback. Our model performed reasonably well, though limited by dataset imbalance and computational constraints. Future work could integrate sentiment directly and explore more advanced NLP models.
+To access the dataset via Kaggle in Colab:
 
----
-
-## VII. Statement of Collaboration
-
-**Jenna**  
-**Title:** Data Exploration & Introduction Writer  
-**Contribution:** Initiated the project and contributed to idea development, located the Kaggle dataset, performed initial data exploration and visualizations, wrote the Introduction and Figures sections, and updated the project README.
-
-**Matt**  
-**Title:** Modeling Lead & Data Engineer  
-**Contribution:** Led model fitting and evaluation processes and provided access to SDSC resources for computing, performed data cleaning and preprocessing.
-
-**Caroline**  
-**Title:** Project Manager & Data Engineer  
-**Contribution:** Managed the project timeline and deadlines, set up Kaggle API and Google Colab environments, performed data cleaning and preprocessing, wrote the Methods section, and organized the GitHub repository including the README documentation.
-
-**Jojo**  
-**Title:** Results Analyst & Visualization Developer  
-**Contribution:** Created visualizations in code to support analysis, authored the Results and Conclusions sections, and contributed to interpretation of model performance.
-
----
-
-## VIII. Final Deliverables
-
-- 📄 [Final Report (Google Doc)](https://docs.google.com/document/d/19uSUlNqZAf24s00qddqhPWhanOm71eJqbT_h4E8t81s/edit?usp=sharing)  
-- 📓 [Final Colab Notebook] (https://colab.research.google.com/drive/1GdWyqy86LHoyqyTSWoFi5fP_voTnJnVQ?usp=sharing)
-- 📓 [Milestone 3 Notebook](https://colab.research.google.com/drive/1B87bLoxxEpuh9BflsjAw8hpDD89787tK?usp=sharing)  
-- 📓 [Milestone 2 Notebook](https://colab.research.google.com/drive/1qLS9L-2DxKVYe4vZ5wNhfQAtpAgXWI1d?usp=sharing)
-
----
-
-## IX. Environment Setup (Colab)
-
-### Kaggle API Setup
 ```python
 from google.colab import files
 files.upload()
@@ -115,10 +52,3 @@ files.upload()
 !mkdir -p ~/.kaggle
 !cp kaggle.json ~/.kaggle/
 !chmod 600 ~/.kaggle/kaggle.json
-
-
-
-!pip install kaggle
-!pip install nltk
-Note: We use the Kaggle API (`!kaggle datasets download`) instead of `!wget` because the Amazon review dataset requires authentication via a Kaggle API key. This is functionally equivalent to `wget` but secure.
-```
