@@ -10,13 +10,15 @@
 
 ## I. Introduction
 
-Amazon Vine is an invite-only review program where top contributors receive free products in exchange for writing reviews. Although marketed as neutral and unbiased, prior research suggests that incentives may affect the tone and content of these reviews.
+Amazon Vine is an invite-only review program that selects highest-quality contributors in Amazon’s review community to serve as Vine Voices. Vine Voices receive free items in exchange for writing reviews, a program that sellers use to boost visibility and credibility of products (Amazon.com, Inc., n.d.). While Amazon claims that Vine reviews “reflect [reviewers’] honest and unbiased opinions — positive, neutral, or negative,” previous research suggests that enrollment in such programs can change the semantics reviewers use, thereby influencing product reviews (Amazon.com, Inc., n.d.; Puranam & Cardie, 2014).
 
-This project investigates whether Vine reviews differ significantly from non-Vine reviews in:
-- Star rating distribution
-- Helpfulness scores
-- Sentiment polarity
-- Review length
+This study evaluates whether there is a significant difference between Vine and non-Vine reviews on product star ratings to assess the Vine program’s impact on review bias.
+
+We use data from the Amazon Customer Reviews Dataset from Kaggle, which contains over 6 million Amazon customer product reviews across multiple product categories over two decades. It offers detailed insights into customer experiences, product ratings, review text, helpfulness votes, and verified purchases (Rempel, n.d.).
+
+We seek to understand whether there is bias in Vine program reviews compared to non-Vine reviews. We hypothesize that Vine reviews are more likely to have higher ratings than non-Vine reviews. Using logistic regression, we aim to predict the star rating of products based on review text and length.
+
+By analyzing differences in product ratings between Vine and non-Vine reviews, this study assesses whether Amazon’s paid-review program introduces bias, offering critical insights into how incentivized reviews shape consumer perceptions and trust in online platforms. Results can assist consumers in making informed purchasing decisions and offer sellers a better understanding of how review programs influence brand perception and sales performance.
 
 We used data from the [Amazon US Customer Reviews Dataset](https://www.kaggle.com/datasets/cynthiarempel/amazon-us-customer-reviews-dataset), applying classification models (logistic regression, Naive Bayes, and Random Forest) to explore review bias.
 
