@@ -75,8 +75,8 @@ All data processing and modeling were conducted using PySpark within Google Cola
 ## IV. Results
 
 - **Final Model:** Logistic Regression  
-- **Accuracy:** 67.4%  
-- **F1 Score:** 0.5983  
+- **Accuracy:** 68.64%  
+- **F1 Score:** 0.6163  
 
 **Insights:**
 - 5-star reviews dominate the dataset (63.91%)
@@ -89,7 +89,7 @@ All data processing and modeling were conducted using PySpark within Google Cola
 
 ## V. Discussion
 
-While logistic regression achieved 67.4% accuracy and an F1 score of 0.5983, these metrics reflect the dataset's class imbalance. Even with sampling and feature engineering, models tended to predict the majority (5-star) class.
+While logistic regression achieved 68.64% accuracy and an F1 score of 0.6163, these metrics reflect the dataset's class imbalance. Even with sampling and feature engineering, models tended to predict the majority (5-star) class.
 
 **Challenges:**
 - Severe class imbalance and limited Vine data (only 0.41% of total)
